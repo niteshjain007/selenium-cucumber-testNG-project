@@ -1,0 +1,15 @@
+D:\training-workspace\saucedemo-ui\src\test\java\pages\CheckoutOverviewPage.java
+D:\training-workspace\saucedemo-ui\src\test\java\utils\WaitUtils.java
+D:\training-workspace\saucedemo-ui\src\test\java\pages\LoginPage.java
+D:\training-workspace\saucedemo-ui\src\test\java\pages\CartPage.java
+D:\training-workspace\saucedemo-ui\src\test\java\stepdefinitions\LoginSteps.java
+D:\training-workspace\saucedemo-ui\src\test\java\runners\TestRunner.java
+D:\training-workspace\saucedemo-ui\src\test\java\pages\InventoryPage.java
+D:\training-workspace\saucedemo-ui\src\test\java\base\BaseTest.java
+D:\training-workspace\saucedemo-ui\src\test\java\stepdefinitions\UrlSteps.java
+D:\training-workspace\saucedemo-ui\src\test\java\pages\CheckoutInformationPage.java
+D:\training-workspace\saucedemo-ui\src\test\java\utils\ElementActions.java
+D:\training-workspace\saucedemo-ui\src\test\java\stepdefinitions\CheckoutSteps.java
+D:\training-workspace\saucedemo-ui\src\test\java\stepdefinitions\InventorySortSteps.java
+D:\training-workspace\saucedemo-ui\src\test\java\utils\DriverFactory.java
+D:\training-workspace\saucedemo-ui\src\test\java\hooks\Hooks.java
