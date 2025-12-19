@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<!--
+How to run (Maven):
+- Sequential: mvn test -Dsurefire.suiteXmlFiles=testng-checkout.xml -Ddataproviderthreadcount=1
+- Parallel:   mvn test -Dsurefire.suiteXmlFiles=testng-checkout.xml -Ddataproviderthreadcount=4
+Filter by tags (optional): -Dcucumber.filter.tags="@regression"
+-->
+<suite name="Cucumber Checkout Feature Suite" verbose="1" parallel="false">
+    <test name="Checkout Feature">
+        <classes>
+            <class name="runners.CheckoutRunner"/>
+        </classes>
+    </test>
+</suite>
+
+

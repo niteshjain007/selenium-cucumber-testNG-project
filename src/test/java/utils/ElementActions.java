@@ -18,10 +18,29 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * ElementActions centralizes robust, higher-level WebElement interactions.
+ * <p>
+ * Each action:
+ * - Waits for a safe precondition (visible/clickable) via {@link WaitUtils}
+ * - Wraps Selenium calls with consistent error handling
+ * - Attaches diagnostic details (screenshot + message) to Extent on failure
+ * <p>
+ * All methods are static for ease of use inside Page Objects and Steps.
+ *
+ * @author NiteshJainQaTestology
+ */
 public final class ElementActions {
 
     private ElementActions() {}
 
+    /**
+     * Clicks the element located by the given locator after waiting until it is clickable.
+     *
+     * @param driver  current {@link WebDriver}
+     * @param locator element locator
+     * @throws RuntimeException when the click fails (also attaches evidence to the report)
+     */
     public static void click(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForClickable(driver, locator);
@@ -32,6 +51,13 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Clears the element and types the provided text.
+     *
+     * @param driver  current {@link WebDriver}
+     * @param locator element locator
+     * @param text    text to type
+     */
     public static void sendKeys(WebDriver driver, By locator, CharSequence text) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -43,6 +69,13 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Gets the visible text of the element.
+     *
+     * @param driver  current {@link WebDriver}
+     * @param locator element locator
+     * @return text value
+     */
     public static String getText(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -53,6 +86,14 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Gets the attribute value from the element.
+     *
+     * @param driver    current {@link WebDriver}
+     * @param locator   element locator
+     * @param attribute attribute name
+     * @return attribute value
+     */
     public static String getAttribute(WebDriver driver, By locator, String attribute) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -63,6 +104,14 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Gets a CSS property value from the element.
+     *
+     * @param driver       current {@link WebDriver}
+     * @param locator      element locator
+     * @param propertyName CSS property name
+     * @return CSS property value
+     */
     public static String getCssValue(WebDriver driver, By locator, String propertyName) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -73,6 +122,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Returns true if the element is visible and displayed; false if not found or not visible.
+     */
     public static boolean isDisplayed(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -82,6 +134,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Returns true if the element is enabled; false if not found or not visible.
+     */
     public static boolean isEnabled(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -91,6 +146,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Returns true if the element is selected.
+     */
     public static boolean isSelected(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -101,6 +159,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Clears the element content.
+     */
     public static void clear(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -111,6 +172,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Submits the element/form.
+     */
     public static void submit(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -121,6 +185,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Types the text and then presses ENTER.
+     */
     public static void typeAndEnter(WebDriver driver, By locator, CharSequence text) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -133,6 +200,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Selects an option from a drop-down by its visible text.
+     */
     public static void selectByVisibleText(WebDriver driver, By locator, String visibleText) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -144,6 +214,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Selects an option from a drop-down by its value.
+     */
     public static void selectByValue(WebDriver driver, By locator, String value) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -155,6 +228,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Selects an option from a drop-down by its index.
+     */
     public static void selectByIndex(WebDriver driver, By locator, int index) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -166,6 +242,11 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Toggles a checkbox to the desired selected state.
+     *
+     * @param shouldBeSelected desired selected state
+     */
     public static void setCheckbox(WebDriver driver, By locator, boolean shouldBeSelected) {
         try {
             WebElement element = WaitUtils.waitForClickable(driver, locator);
@@ -181,6 +262,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Moves the mouse cursor over the element.
+     */
     public static void hover(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -192,6 +276,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Performs a double click on the element.
+     */
     public static void doubleClick(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForClickable(driver, locator);
@@ -203,6 +290,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Performs a context-click (right click) on the element.
+     */
     public static void rightClick(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForClickable(driver, locator);
@@ -214,6 +304,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Clicks the element via JavaScript. Useful as a last resort if standard click is blocked.
+     */
     public static void clickUsingJs(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -224,6 +317,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Scrolls the element into the viewport center.
+     */
     public static void scrollIntoView(WebDriver driver, By locator) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -234,6 +330,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Sends an absolute file path to a file input element to upload a file.
+     */
     public static void uploadFile(WebDriver driver, By locator, String absolutePath) {
         try {
             WebElement element = WaitUtils.waitForVisible(driver, locator);
@@ -244,6 +343,10 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Attempts both element.clear() and CTRL/Command+A followed by DELETE.
+     * Using both strategies helps with shadow DOM or custom inputs that ignore one approach.
+     */
     private static void clearWithSelectAll(WebElement element) {
         try {
             element.clear();
@@ -256,6 +359,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Attaches a failure message and screenshot to the Extent report for easier debugging.
+     */
     private static void attachFailure(String action, By locator, Exception e) {
         try {
             // Log failure in Extent
@@ -279,6 +385,9 @@ public final class ElementActions {
         }
     }
 
+    /**
+     * Replaces characters that may be unsafe in filenames with underscores.
+     */
     private static String sanitize(String text) {
         return text.replaceAll("[^a-zA-Z0-9-_\\.]", "_");
     }

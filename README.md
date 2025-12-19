@@ -133,3 +133,92 @@ mvn -q -DskipTests=false -Dcucumber.filter.tags="@regression" -Dbrowser=chrome -
 For training/demo purposes.
 
 
+### Getting the project locally (step-by-step)
+1) Clone the repository
+
+```bash
+git clone <your-repo-url>.git
+cd saucedemo-ui
+```
+
+2) Open in your IDE and let Maven import dependencies (`pom.xml`).
+
+3) Verify the build
+
+```bash
+mvn -q -DskipTests=true clean verify
+```
+
+4) Run a quick smoke sample
+
+```bash
+mvn test -Dsurefire.suiteXmlFiles=testng-smoke.xml
+```
+
+### How the framework is organized
+- Full-suite runner: `runners.TestRunner` (default tags: `@smoke or @regression`)
+- Per-feature runners (run one feature at a time):
+  - `runners.LoginRunner` → `features/login.feature`
+  - `runners.CheckoutRunner` → `features/checkout.feature`
+  - `runners.InventorySortRunner` → `features/inventory_sort.feature`
+  - `runners.UrlChecksRunner` → `features/url_checks.feature`
+- Tag-specific runners:
+  - `runners.SmokeRunner` → runs `@smoke`
+  - `runners.RegressionRunner` → runs `@regression`
+
+### Quick run options
+- Full suite (default `testng.xml`):
+
+```bash
+mvn test
+```
+
+- Smoke or regression suites:
+
+```bash
+mvn test -Dsurefire.suiteXmlFiles=testng-smoke.xml
+mvn test -Dsurefire.suiteXmlFiles=testng-regression.xml
+```
+
+- Single feature via suite XMLs:
+
+```bash
+mvn test -Dsurefire.suiteXmlFiles=testng-login.xml
+mvn test -Dsurefire.suiteXmlFiles=testng-checkout.xml
+mvn test -Dsurefire.suiteXmlFiles=testng-inventory-sort.xml
+mvn test -Dsurefire.suiteXmlFiles=testng-url-checks.xml
+```
+
+- Tag filters (works with any suite):
+
+```bash
+mvn test -Dcucumber.filter.tags="@smoke and not @wip"
+```
+
+- Browser and headless:
+
+```bash
+mvn test -Dbrowser=chrome -Dheadless=true
+```
+
+### Running from IDE
+- Right‑click a runner class and choose “Run”:
+  - Full: `runners.TestRunner`
+  - Per-feature: `LoginRunner`, `CheckoutRunner`, `InventorySortRunner`, `UrlChecksRunner`
+  - Tag suites: `SmokeRunner`, `RegressionRunner`
+- Or right‑click a TestNG suite XML (e.g., `testng-smoke.xml`) and run.
+
+### Configuration flags (system properties)
+- `-Dbrowser=chrome|firefox` (default: firefox)
+- `-Dheadless=true|false` (default: false)
+- `-Dwait.timeout.seconds=10`
+- `-Dwait.poll.millis=200`
+- `-Ddataproviderthreadcount=1..N`
+- `-Dcucumber.filter.tags="@tagExpr"`
+
+### What is created after runs (ignored by Git)
+- `target/` (Maven output)
+- `surefire-reports/`, `test-output/` (TestNG reports)
+- `extent-reports/` (Extent HTML and screenshots)
+- `allure-results/` (if generated locally)
+

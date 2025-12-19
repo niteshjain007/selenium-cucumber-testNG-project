@@ -14,13 +14,30 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import utils.DriverFactory;
 
+/**
+ * Global Cucumber hooks.
+ * - @Before: initialize a WebDriver for the current scenario/thread
+ * - @After: on failure, attach a screenshot to Cucumber and Extent; then quit driver
+ *
+ * Screenshot paths are kept consistent with Extent's configuration so they appear in the report.
+ *
+ * @author NiteshJainQaTestology
+ */
 public class Hooks {
 
+    /**
+     * Creates a browser session before each scenario.
+     */
     @Before
     public void setUp() {
         DriverFactory.initDriver();
     }
 
+    /**
+     * Tears down the browser after each scenario. On failure:
+     * - Attaches a PNG screenshot to the Cucumber report for traceability
+     * - Saves a file under extent-reports/screenshots and links it in Extent
+     */
     @After
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {

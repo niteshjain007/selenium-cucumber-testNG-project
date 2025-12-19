@@ -3,6 +3,19 @@ package runners;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
+
+/**
+ * TestNG+Cucumber runner configuration.
+ * - Features path: src/test/resources/features
+ * - Glue packages: stepdefinitions, hooks
+ * - Plugins: pretty + ExtentReports adapter
+ * - Tags: defaults to "@smoke or @regression" (override via -Dcucumber.filter.tags)
+ *
+ * Extends {@link AbstractTestNGCucumberTests} to leverage TestNG's DataProvider
+ * for parallel execution of Cucumber scenarios.
+ *
+ * @author NiteshJainQaTestology
+ */
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"stepdefinitions", "hooks"},

@@ -11,15 +11,27 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Step definitions for verifying client-side sorting on the inventory page.
+ * Compares UI lists to locally computed expected orders for both name and price.
+ *
+ * @author NiteshJainQaTestology
+ */
 public class InventorySortSteps {
 
     private final InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver());
 
+    /**
+     * Applies a sort option on the UI.
+     */
     @And("user sorts products by {string}")
     public void user_sorts_products_by(String sortName) {
         inventoryPage.sort(sortName);
     }
 
+    /**
+     * Validates that the products appear in the expected order after sorting.
+     */
     @Then("products should be sorted by {string}")
     public void products_should_be_sorted_by(String sortName) {
         if (sortName.startsWith("Name")) {
